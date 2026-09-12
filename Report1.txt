@@ -1,0 +1,16 @@
+- Validating (Error)
+	Messages
+	* Error 0xc02020f4: Data Flow Task 1: The column "GLAccount" cannot be processed because more than one code page (65001 and 1252) are specified for it.
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc004706b: Data Flow Task 1: "Destination - TB_CustomerLedger" failed validation and returned validation status "VS_ISBROKEN".
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc004700c: Data Flow Task 1: One or more component failed validation.
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc0024107: Data Flow Task 1: There were errors during task validation.
+	 (SQL Server Import and Export Wizard)
+	
+
+
