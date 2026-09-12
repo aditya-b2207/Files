@@ -1,16 +1,71 @@
-- Validating (Error)
-	Messages
-	* Error 0xc02020f4: Data Flow Task 1: The column "GLAccount" cannot be processed because more than one code page (65001 and 1252) are specified for it.
-	 (SQL Server Import and Export Wizard)
-	
-	* Error 0xc004706b: Data Flow Task 1: "Destination - TB_CustomerLedger" failed validation and returned validation status "VS_ISBROKEN".
-	 (SQL Server Import and Export Wizard)
-	
-	* Error 0xc004700c: Data Flow Task 1: One or more component failed validation.
-	 (SQL Server Import and Export Wizard)
-	
-	* Error 0xc0024107: Data Flow Task 1: There were errors during task validation.
-	 (SQL Server Import and Export Wizard)
-	
+SQL Server parse and compile time: 
+   CPU time = 15 ms, elapsed time = 36 ms.
 
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
 
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 1 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 29 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 4 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 1 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 11 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 4 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+SQL Server parse and compile time: 
+   CPU time = 47 ms, elapsed time = 625 ms.
+
+ SQL Server Execution Times:
+   CPU time = 47 ms,  elapsed time = 2314 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+SQL Server parse and compile time: 
+   CPU time = 16 ms, elapsed time = 470 ms.
+
+ SQL Server Execution Times:
+   CPU time = 5140 ms,  elapsed time = 52074 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 1 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 53 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 23 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+
+ SQL Server Execution Times:
+   CPU time = 5265 ms,  elapsed time = 55657 ms.
+
+Completion time: 2026-09-13T02:42:31.2128504+05:30
