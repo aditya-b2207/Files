@@ -1,0 +1,17 @@
+- Copying to [dbo].[TB_CustomerLedger] (Error)
+	Messages
+	* Error 0xc0202009: Data Flow Task 1: SSIS Error Code DTS_E_OLEDBERROR.  An OLE DB error has occurred. Error code: 0x80004005.
+	An OLE DB record is available.  Source: "Microsoft OLE DB Driver for SQL Server"  Hresult: 0x80004005  Description: "Invalid date format".
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc020901c: Data Flow Task 1: There was an error with Destination - TB_CustomerLedger.Inputs[Destination Input].Columns[Clearing_Date] on Destination - TB_CustomerLedger.Inputs[Destination Input]. The column status returned was: "Conversion failed because the data value overflowed the specified type.".
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc0209029: Data Flow Task 1: SSIS Error Code DTS_E_INDUCEDTRANSFORMFAILUREONERROR.  The "Destination - TB_CustomerLedger.Inputs[Destination Input]" failed because error code 0xC020907A occurred, and the error row disposition on "Destination - TB_CustomerLedger.Inputs[Destination Input]" specifies failure on error. An error occurred on the specified object of the specified component.  There may be error messages posted before this with more information about the failure.
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc0047022: Data Flow Task 1: SSIS Error Code DTS_E_PROCESSINPUTFAILED.  The ProcessInput method on component "Destination - TB_CustomerLedger" (102) failed with error code 0xC0209029 while processing input "Destination Input" (115). The identified component returned an error from the ProcessInput method. The error is specific to the component, but the error is fatal and will cause the Data Flow task to stop running.  There may be error messages posted before this with more information about the failure.
+	 (SQL Server Import and Export Wizard)
+	
+
+
