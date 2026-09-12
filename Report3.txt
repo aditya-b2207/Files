@@ -1,0 +1,16 @@
+- Executing (Error)
+	Messages
+	* Information 0x402090de: Data Flow Task 1: The total number of data rows processed for file "C:\Users\50009368\Downloads\CustomerLedgerDataLatest.txt" is 572.
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc02020c5: Data Flow Task 1: Data conversion failed while converting column "Clearing_Date" (54) to column "Clearing_Date" (170).  The conversion returned status value 2 and status text "The value could not be converted because of a potential loss of data.".
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc0209029: Data Flow Task 1: SSIS Error Code DTS_E_INDUCEDTRANSFORMFAILUREONERROR.  The "Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Clearing_Date]" failed because error code 0xC020907F occurred, and the error row disposition on "Data Conversion 0 - 0.Outputs[Data Conversion Output].Columns[Clearing_Date]" specifies failure on error. An error occurred on the specified object of the specified component.  There may be error messages posted before this with more information about the failure.
+	 (SQL Server Import and Export Wizard)
+	
+	* Error 0xc0047022: Data Flow Task 1: SSIS Error Code DTS_E_PROCESSINPUTFAILED.  The ProcessInput method on component "Data Conversion 0 - 0" (142) failed with error code 0xC0209029 while processing input "Data Conversion Input" (143). The identified component returned an error from the ProcessInput method. The error is specific to the component, but the error is fatal and will cause the Data Flow task to stop running.  There may be error messages posted before this with more information about the failure.
+	 (SQL Server Import and Export Wizard)
+	
+
+
