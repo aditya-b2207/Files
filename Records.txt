@@ -1,2 +1,23 @@
-CreateOrderNumber	IndentNumber	DateOfPurchase	LineItemNumber	RepManCode	OrderQuantity	OrderQuantity_UOM	Sale_Price	Total_Price	ShippingAddress	BillingAddress	City	Dealer_State	ZipCode	ContactPersonName	ContactPersonNumber	CreatedAt	UpdatedAt	CreateOrderDate	CompanyCode	CartId	Email	UserId	OrderType	SalesOrganisation	DistChannel	Division	TMApproval	TMApproval_Date	RMApproval	RMApproval_Date	ShippedFromPlant	SONumber	SO_Date	CartItemId	CustomerCode	CustomerName	Total_Items	SrNo	Role_Details	IsActive_User	UserName	Available_Stock	TMName	RMName	UserCode	OrderRejectStatus	OrderRejectDate	OrderRejectName	OrderRejectRole	RMCode	ZSMCode	Plant	SecondApprovalUserCode	ResultMessage	SalesIndentStatus	Approve_From_Plant	Approve_From_C_AND_F	Approve_From_PlantUserCode	Approve_From_Plant_Request_Date	Approve_From_PlantUserRole	Rejectedreason	BHMName	BHM_Approval	BHM_Approval_Date	BHM_Reporting_Code	NSMCode	NSMName	NSM_Approval	NSM_Approval_Date
-5204	NULL	2026-09-17 04:18:37.540	NULL	23151892	NULL	NULL	NULL	2498320.023	No:368,Suthanagar,Suthanagar,, VILLUPURAM DIST., TN, Tamil Nadu, 605602	No:368,Suthanagar,Suthanagar,,VILLUPURAM DIST., TN,22,Tamil Nadu,605602	VILLUPURAM DIST., TN	Tamil Nadu	605602	INDICA SEEDS & AGRI SERVICES	9865595482	2026-09-17 04:18:37.540	2026-09-17 04:18:37.540	2026-09-17 04:18:37.540	1049	5717	AGIS&AS813	2132	ZFCM	AG01	01	25	1	2026-09-17 04:19:43.253	1	2026-09-17 04:31:20.193	AGIS&AS813	0201978855	2026-09-17 04:32:26.050	NULL	AGIS&AS813	INDICA SEEDS & AGRI SERVICES	2	NULL	Customer	1	INDICA SEEDS & AGRI SERVICES	NULL	Ramachandran Pandi	Ravikumar Karuppanan	AGIS&AS813	0	2026-09-17 04:18:37.540	NULL	NULL	25035256	25019858	G100 	25035256	NULL	APPROVED	1	0	25019858	2026-09-17 04:31:20.193	NULL	NULL	NULL	NULL	NULL	NULL	25019858	JITENDRA SINGH	1	2026-09-17 04:32:17.337
+CreateOrderNumber	DateOfPurchase	SONumber	SO_Date	CustomerName	BillingAddress	ShippingAddress	Plant	Total_Items	Total_Price	TMName	RMName	NSMName	TMApproval_Date	RMApproval_Date	NSM_Approval	ApprovalFlow
+5204	2026-09-17 04:18:37.540	0201978855	2026-09-17 04:32:26.050	INDICA SEEDS & AGRI SERVICES	No:368,Suthanagar,Suthanagar,,VILLUPURAM DIST., TN,22,Tamil Nadu,605602	No:368,Suthanagar,Suthanagar,, VILLUPURAM DIST., TN, Tamil Nadu, 605602	G100 	2	2498320.023	Ramachandran Pandi	Ravikumar Karuppanan	JITENDRA SINGH	2026-09-17 04:19:43.253	2026-09-17 04:31:20.193	1	NSM
+
+
+-----------------------------------------------------------------
+
+SrNo	Material_Description	Quantity	Rate	Amount
+1	IMP PADDY MPR 606 PACK SEED 10KG	7000.000	101.199996948242	708399.979
+2	IMP PADDY SOWBHAGYA PACK SEED 10KG	18000.000	99.4400024414063	1789920.044
+
+---------------------------------------------------------------------------------------------
+
+EmailID
+
+------------------------------------------------------------------------------------------------------------------------
+Email
+25019858@mahindra.com
+23128452@mahindra.com
+25025357@mahindra.com
+S03609@mahindra.com
+bhavesh.bhavsar@sidhman.com
+25035256@mahindra.com
+25027959@mahindra.com
