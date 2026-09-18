@@ -1,71 +1,15 @@
-SQL Server parse and compile time: 
-   CPU time = 15 ms, elapsed time = 36 ms.
+CreateOrderNumber	OrderPlant	PlantLength	PlantBytes
+5204	[G100 ]	4	10
 
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
+-------------------------------------------------------------------
 
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
+PlantCode	PlantCodeCheck	EmailID
 
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
+-----------------------------------------------------------------------
 
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 1 ms.
+SrNo	Warehouse	PlantCode	CompanyName	EmailID	FirstName	LastName	MobileNumber	State	City
 
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
+_---------------------------------------------------------------------------------------------
 
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
-SQL Server parse and compile time: 
-   CPU time = 0 ms, elapsed time = 29 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 4 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 1 ms.
-SQL Server parse and compile time: 
-   CPU time = 0 ms, elapsed time = 11 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 4 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
-SQL Server parse and compile time: 
-   CPU time = 47 ms, elapsed time = 625 ms.
-
- SQL Server Execution Times:
-   CPU time = 47 ms,  elapsed time = 2314 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
-SQL Server parse and compile time: 
-   CPU time = 16 ms, elapsed time = 470 ms.
-
- SQL Server Execution Times:
-   CPU time = 5140 ms,  elapsed time = 52074 ms.
-SQL Server parse and compile time: 
-   CPU time = 0 ms, elapsed time = 1 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 53 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 23 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
-
- SQL Server Execution Times:
-   CPU time = 0 ms,  elapsed time = 0 ms.
-
- SQL Server Execution Times:
-   CPU time = 5265 ms,  elapsed time = 55657 ms.
-
-Completion time: 2026-09-13T02:42:31.2128504+05:30
+OrderPlant	PlantCode	EmailID
+G100 	NULL	NULL
