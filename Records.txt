@@ -1,23 +1,33 @@
-CreateOrderNumber	DateOfPurchase	SONumber	SO_Date	CustomerName	BillingAddress	ShippingAddress	Plant	Total_Items	Total_Price	TMName	RMName	NSMName	TMApproval_Date	RMApproval_Date	NSM_Approval	ApprovalFlow
-5204	2026-09-17 04:18:37.540	0201978855	2026-09-17 04:32:26.050	INDICA SEEDS & AGRI SERVICES	No:368,Suthanagar,Suthanagar,,VILLUPURAM DIST., TN,22,Tamil Nadu,605602	No:368,Suthanagar,Suthanagar,, VILLUPURAM DIST., TN, Tamil Nadu, 605602	G100 	2	2498320.023	Ramachandran Pandi	Ravikumar Karuppanan	JITENDRA SINGH	2026-09-17 04:19:43.253	2026-09-17 04:31:20.193	1	NSM
-
+SELECT
+    CreateOrderNumber,
+    '[' + Plant + ']' AS OrderPlant,
+    LEN(Plant) AS PlantLength,
+    DATALENGTH(Plant) AS PlantBytes
+FROM TB_Create_Dealer_Order
+WHERE CreateOrderNumber = 5204;
 
 -----------------------------------------------------------------
+SELECT
+    PlantCode,
+    '[' + PlantCode + ']' AS PlantCodeCheck,
+    EmailID
+FROM TB_CFA_List
+WHERE PlantCode LIKE '%G100%';
 
-SrNo	Material_Description	Quantity	Rate	Amount
-1	IMP PADDY MPR 606 PACK SEED 10KG	7000.000	101.199996948242	708399.979
-2	IMP PADDY SOWBHAGYA PACK SEED 10KG	18000.000	99.4400024414063	1789920.044
+---------------------------------------------------------------------------------
+SELECT *
+FROM TB_CFA_List
+WHERE PlantCode = 'G100';
 
----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
-EmailID
+DECLARE @CreateOrderNumber BIGINT = 5204;
 
-------------------------------------------------------------------------------------------------------------------------
-Email
-25019858@mahindra.com
-23128452@mahindra.com
-25025357@mahindra.com
-S03609@mahindra.com
-bhavesh.bhavsar@sidhman.com
-25035256@mahindra.com
-25027959@mahindra.com
+SELECT
+    O.Plant AS OrderPlant,
+    C.PlantCode,
+    C.EmailID
+FROM TB_Create_Dealer_Order O
+LEFT JOIN TB_CFA_List C
+    ON C.PlantCode = O.Plant
+WHERE O.CreateOrderNumber = @CreateOrderNumber;
