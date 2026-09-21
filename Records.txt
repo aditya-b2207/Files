@@ -1,26 +1,2 @@
-CreateOrderNumber	DateOfPurchase	SONumber	SO_Date	CustomerName	BillingAddress	ShippingAddress	Plant	Total_Items	Total_Price	TMName	RMName	BHMName	TMApproval_Date	RMApproval_Date	BHM_Approval	ApprovalFlow
-5190	2026-09-09 05:36:03.800	0201976376	2026-09-10 05:37:30.040	DURGADEVI TRADERS	Gandhi Road, Karimnagar, Telangana, Telangana(36) - 505001	Gandhi Road Karimnagar, Telangana Telangana(36) 505001	G100 	1	274889.987	MANGALAMPALLY NAVEEN KUMAR	Chaitanya Bachina	Jitendra Singh	2026-09-09 05:37:16.697	2026-09-10 05:35:27.967	1	BHM
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-SrNo	Material_Description	Quantity	Rate	Amount
-1	MAIZE KALYAN PACK SEED 3.5KG	525.000	523.599975585938	274889.987
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Email
-202347@mahindra.com
-25018399@mahindra.com
-25027959@mahindra.com
-25012545@mahindra.com
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Email
-25019858@mahindra.com
-23093391@mahindra.com
-23128452@mahindra.com
-25025357@mahindra.com
-S03609@mahindra.com
-bhavesh.bhavsar@sidhman.com
-25027959@mahindra.com
+MailLogId	CreateOrderNumber	SONumber	EventType	ToEmails	CcEmails	Subject	Status	ErrorMessage	SentOn	Source	Version
+1862	5190	0201976376	BHMApproval	202347@mahindra.com,25018399@mahindra.com,25027959@mahindra.com,25012545@mahindra.com	25019858@mahindra.com,23093391@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	NULL	SUCCESS	NULL	2026-09-10 05:37:32.400	WEB	NULL
