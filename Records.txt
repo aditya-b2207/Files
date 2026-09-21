@@ -1,2 +1,46 @@
-MailLogId	CreateOrderNumber	SONumber	EventType	ToEmails	CcEmails	Subject	Status	ErrorMessage	SentOn	Source	Version
-1862	5190	0201976376	BHMApproval	202347@mahindra.com,25018399@mahindra.com,25027959@mahindra.com,25012545@mahindra.com	25019858@mahindra.com,23093391@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	NULL	SUCCESS	NULL	2026-09-10 05:37:32.400	WEB	NULL
+CREATE TABLE dbo.TB_SmtpDiagnosticLog
+(
+    SmtpDiagnosticLogId BIGINT IDENTITY(1,1) PRIMARY KEY,
+
+    CreateOrderNumber BIGINT NULL,
+    SONumber NVARCHAR(100) NULL,
+    EventType NVARCHAR(100) NULL,
+
+    Stage NVARCHAR(50) NULL,
+    Status NVARCHAR(50) NULL,
+
+    SmtpHost NVARCHAR(255) NULL,
+    SmtpPort INT NULL,
+
+    FromEmail NVARCHAR(320) NULL,
+    ToEmails NVARCHAR(MAX) NULL,
+    CcEmails NVARCHAR(MAX) NULL,
+    Subject NVARCHAR(500) NULL,
+
+    SmtpResponse NVARCHAR(MAX) NULL,
+
+    SmtpStatusCode NVARCHAR(100) NULL,
+    SmtpErrorCode NVARCHAR(100) NULL,
+    RejectedMailbox NVARCHAR(320) NULL,
+
+    ExceptionType NVARCHAR(500) NULL,
+    ErrorMessage NVARCHAR(MAX) NULL,
+    InnerException NVARCHAR(MAX) NULL,
+
+    Source NVARCHAR(50) NULL,
+    Version NVARCHAR(100) NULL,
+
+    LoggedOn DATETIME2(3) NOT NULL
+        CONSTRAINT DF_TB_SmtpDiagnosticLog_LoggedOn
+        DEFAULT SYSDATETIME()
+);
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE INDEX IX_TB_SmtpDiagnosticLog_CreateOrderNumber
+ON dbo.TB_SmtpDiagnosticLog
+(
+    CreateOrderNumber,
+    LoggedOn DESC
+);
+
