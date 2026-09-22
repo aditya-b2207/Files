@@ -1,74 +1,15 @@
-INSERT INTO dbo.TB_CFA_List
-(
-    Warehouse,
-    PlantCode,
-    CompanyName,
-    EmailID,
-    MobileNumber,
-    State,
-    City
+-- CFA Mail (TO)
+SELECT DISTINCT
+    TRIM(C.EmailID) AS EmailID
+FROM TB_CFA_List C
+WHERE TRIM(C.PlantCode) = (
+    SELECT TOP 1 TRIM(O.Plant)
+    FROM TB_Create_Dealer_Order O
+    WHERE O.CreateOrderNumber = @CreateOrderNumber
 )
-SELECT
-    V.Warehouse,
-    V.PlantCode,
-    V.CompanyName,
-    V.EmailID,
-    V.MobileNumber,
-    V.State,
-    V.City
-FROM
-(
-    VALUES
-    (
-        N'Hyderabad',
-        N'G100',
-        N'Mahindra Agri Solution Limited',
-        N'PATIL.BALAPRASAD@mahindra.com',
-        N'9595603460',
-        N'Telangana',
-        N'Hyderabad'
-    ),
-    (
-        N'Hyderabad',
-        N'G100',
-        N'Mahindra Agri Solution Limited',
-        N'hongadu.sagar@mahindra.com',
-        N'9987012975',
-        N'Telangana',
-        N'Hyderabad'
-    ),
-    (
-        N'Hyderabad',
-        N'G100',
-        N'Mahindra Agri Solution Limited',
-        N'besta.srinivas@mahindra.com',
-        N'9701129811',
-        N'Telangana',
-        N'Hyderabad'
-    ),
-    (
-        N'Hyderabad',
-        N'G100',
-        N'Mahindra Agri Solution Limited',
-        N'KUMAR.RAJNISH2@mahindra.com',
-        N'9933392187',
-        N'Telangana',
-        N'Hyderabad'
-    )
-) V
-(
-    Warehouse,
-    PlantCode,
-    CompanyName,
-    EmailID,
-    MobileNumber,
-    State,
-    City
-)
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM dbo.TB_CFA_List C
-    WHERE TRIM(C.PlantCode) = V.PlantCode
-      AND LOWER(TRIM(C.EmailID)) = LOWER(V.EmailID)
-);
+AND C.EmailID IS NOT NULL
+AND TRIM(C.EmailID) <> '';
+
+
+--------------------------------------------------------------------
+
