@@ -1,13 +1,2 @@
-SrNo	Warehouse	PlantCode	CompanyName	EmailID	FirstName	LastName	MobileNumber	State	City
-1	Vijayawada	G104	Harshita Agro Agencies	pmvijayawada.cf@mahindra.com	PARAMESWARARAO	BALDA	9705820453	Andra Pradesh	Vijayawada
-2	Patna	G114	Inva Corporation	vkpatna.cf@mahindra.com	ARUN KUMAR	KUMAR	9304838631	Bihar	Patna
-3	Hubli	G109	Pavan Marketers	GOTAGODIMATH.MRUTHYUNJAYA@mahindra.com	MRUTHYUNJAYA RACHAYYA	GOTAGODIMATH	9844208606	Karnataka	Hubli
-4	Amritsar	G103	Sukha Singh Inder Singh	ssis53@yahoo.com	HARVANS	SINGH	9417253500	Punjab	Amritsar
-5	Dindigul	G115	Prime Marketing	primemarketting2015@gmail.com	KUPPAMUTHU ELANGO	YOGESHWARAN	9159123335	Tamilnadu	Dindigul
-6	Agra	G102	Green Crop Agro Agency	agra.agagra.cf@mahindra.com	KAVITA	SINGH	7409671440	Uttar Pradesh	Agra
-7	Jabalpur	G120	Shri Laxmi Warehouse	shreelaxmijbp@gmail.com	NARENDRA KUMAR	AGRAWAL	9329778436	Madhya Pradesh	Jabalpur
-8	Raipur	G105	AGRAWAL SECURE LOGISTICS PRIVATE LIMITED	agrvin123@yahoo.com	VINOD	AGARWAL	9300182581	Chhatisgarh	Raipur
-9	Jaipur	G108	Manoj Agro Services	manojagroservicesjaipur@gmail.com	ASHA	SAINI	9667871106	Rajastan	Jaipur
-10	Pune	G124	Phoenix Supply Chain Solutions Pvt Ltd	pune.mahindraagri@gmail.com	AJINKYA	VILAS	9822532201	Maharashtra	Pune
-11	Lucknow	G118	Green Logistics	pk.lucknow@mahindra.com	NAGENDRA	SINGH	8445314872	Utter Pradesh	Lucknow
-12	Ranchi	G123	Sai Agrotech	sai.agrotech19@yahoo.com	JULEE	SINGH	7004477108	Jharkhand	Ranchi
+CreateOrderNumber	IndentNumber	DateOfPurchase	LineItemNumber	RepManCode	OrderQuantity	OrderQuantity_UOM	Sale_Price	Total_Price	ShippingAddress	BillingAddress	City	Dealer_State	ZipCode	ContactPersonName	ContactPersonNumber	CreatedAt	UpdatedAt	CreateOrderDate	CompanyCode	CartId	Email	UserId	OrderType	SalesOrganisation	DistChannel	Division	TMApproval	TMApproval_Date	RMApproval	RMApproval_Date	ShippedFromPlant	SONumber	SO_Date	CartItemId	CustomerCode	CustomerName	Total_Items	SrNo	Role_Details	IsActive_User	UserName	Available_Stock	TMName	RMName	UserCode	OrderRejectStatus	OrderRejectDate	OrderRejectName	OrderRejectRole	RMCode	ZSMCode	Plant	SecondApprovalUserCode	ResultMessage	SalesIndentStatus	Approve_From_Plant	Approve_From_C_AND_F	Approve_From_PlantUserCode	Approve_From_Plant_Request_Date	Approve_From_PlantUserRole	Rejectedreason	BHMName	BHM_Approval	BHM_Approval_Date	BHM_Reporting_Code	NSMCode	NSMName	NSM_Approval	NSM_Approval_Date
+5215	NULL	2026-09-22 07:14:44.850	NULL	25022706	NULL	NULL	NULL	11000.000	1ST FLOOR,OPP:AMULYA MARKET,MA, AGARTALA, Tripura, 799001	1ST FLOOR,OPP:AMULYA MARKET,MA,AGARTALA,23,Tripura,799001	AGARTALA	Tripura	799001	FARMERS POINT	7005080261	2026-09-22 07:14:44.850	2026-09-22 07:14:44.850	2026-09-22 07:14:44.850	1049	5729	AGFP2310	7	ZFCM	AG01	01	VG	1	2026-09-22 07:15:59.813	1	2026-09-22 07:16:44.297	AGFP2310	0201981041	2026-09-22 07:18:00.277	NULL	AGFP2310	FARMERS POINT	1	NULL	Customer	1	FARMERS POINT	NULL	Thaneshwar Kumar	Pankaj Kumar	AGFP2310	0	2026-09-22 07:14:44.850	NULL	NULL	25000329	25019858	G100 	25000329	NULL	APPROVED	1	0	25019858	2026-09-22 07:16:44.297	NULL	NULL	NULL	NULL	NULL	NULL	25019858	JITENDRA SINGH	1	2026-09-22 07:17:51.530
