@@ -1,38 +1,74 @@
-/****** Object:  Table [dbo].[TB_CFA_List]    Script Date: 9/22/2026 2:07:36 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[TB_CFA_List](
-	[SrNo] [int] IDENTITY(1,1) NOT NULL,
-	[Warehouse] [nvarchar](100) NULL,
-	[PlantCode] [nvarchar](10) NULL,
-	[CompanyName] [nvarchar](200) NULL,
-	[EmailID] [nvarchar](150) NULL,
-	[FirstName] [nvarchar](100) NULL,
-	[LastName] [nvarchar](100) NULL,
-	[MobileNumber] [nvarchar](15) NULL,
-	[State] [nvarchar](100) NULL,
-	[City] [nvarchar](100) NULL,
-PRIMARY KEY CLUSTERED 
+INSERT INTO dbo.TB_CFA_List
 (
-	[SrNo] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
--------------------------------------------------------------------------------------------------------------------
-SrNo	Warehouse	PlantCode	CompanyName	EmailID	FirstName	LastName	MobileNumber	State	City
-1	Vijayawada	G104	Harshita Agro Agencies	pmvijayawada.cf@mahindra.com	PARAMESWARARAO	BALDA	9705820453	Andra Pradesh	Vijayawada
-2	Patna	G114	Inva Corporation	vkpatna.cf@mahindra.com	ARUN KUMAR	KUMAR	9304838631	Bihar	Patna
-3	Hubli	G109	Pavan Marketers	GOTAGODIMATH.MRUTHYUNJAYA@mahindra.com	MRUTHYUNJAYA RACHAYYA	GOTAGODIMATH	9844208606	Karnataka	Hubli
-4	Amritsar	G103	Sukha Singh Inder Singh	ssis53@yahoo.com	HARVANS	SINGH	9417253500	Punjab	Amritsar
-5	Dindigul	G115	Prime Marketing	primemarketting2015@gmail.com	KUPPAMUTHU ELANGO	YOGESHWARAN	9159123335	Tamilnadu	Dindigul
-6	Agra	G102	Green Crop Agro Agency	agra.agagra.cf@mahindra.com	KAVITA	SINGH	7409671440	Uttar Pradesh	Agra
-7	Jabalpur	G120	Shri Laxmi Warehouse	shreelaxmijbp@gmail.com	NARENDRA KUMAR	AGRAWAL	9329778436	Madhya Pradesh	Jabalpur
-8	Raipur	G105	AGRAWAL SECURE LOGISTICS PRIVATE LIMITED	agrvin123@yahoo.com	VINOD	AGARWAL	9300182581	Chhatisgarh	Raipur
-9	Jaipur	G108	Manoj Agro Services	manojagroservicesjaipur@gmail.com	ASHA	SAINI	9667871106	Rajastan	Jaipur
-10	Pune	G124	Phoenix Supply Chain Solutions Pvt Ltd	pune.mahindraagri@gmail.com	AJINKYA	VILAS	9822532201	Maharashtra	Pune
-11	Lucknow	G118	Green Logistics	pk.lucknow@mahindra.com	NAGENDRA	SINGH	8445314872	Utter Pradesh	Lucknow
-12	Ranchi	G123	Sai Agrotech	sai.agrotech19@yahoo.com	JULEE	SINGH	7004477108	Jharkhand	Ranchi
+    Warehouse,
+    PlantCode,
+    CompanyName,
+    EmailID,
+    MobileNumber,
+    State,
+    City
+)
+SELECT
+    V.Warehouse,
+    V.PlantCode,
+    V.CompanyName,
+    V.EmailID,
+    V.MobileNumber,
+    V.State,
+    V.City
+FROM
+(
+    VALUES
+    (
+        N'Hyderabad',
+        N'G100',
+        N'Mahindra Agri Solution Limited',
+        N'PATIL.BALAPRASAD@mahindra.com',
+        N'9595603460',
+        N'Telangana',
+        N'Hyderabad'
+    ),
+    (
+        N'Hyderabad',
+        N'G100',
+        N'Mahindra Agri Solution Limited',
+        N'hongadu.sagar@mahindra.com',
+        N'9987012975',
+        N'Telangana',
+        N'Hyderabad'
+    ),
+    (
+        N'Hyderabad',
+        N'G100',
+        N'Mahindra Agri Solution Limited',
+        N'besta.srinivas@mahindra.com',
+        N'9701129811',
+        N'Telangana',
+        N'Hyderabad'
+    ),
+    (
+        N'Hyderabad',
+        N'G100',
+        N'Mahindra Agri Solution Limited',
+        N'KUMAR.RAJNISH2@mahindra.com',
+        N'9933392187',
+        N'Telangana',
+        N'Hyderabad'
+    )
+) V
+(
+    Warehouse,
+    PlantCode,
+    CompanyName,
+    EmailID,
+    MobileNumber,
+    State,
+    City
+)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM dbo.TB_CFA_List C
+    WHERE TRIM(C.PlantCode) = V.PlantCode
+      AND LOWER(TRIM(C.EmailID)) = LOWER(V.EmailID)
+);
