@@ -1,26 +1,16 @@
-CreateOrderNumber	DateOfPurchase	SONumber	SO_Date	CustomerName	BillingAddress	ShippingAddress	Plant	Total_Items	Total_Price	TMName	RMName	NSMName	TMApproval_Date	RMApproval_Date	NSM_Approval	ApprovalFlow
-5216	2026-09-22 09:36:30.507	0201981151	2026-09-22 09:39:33.440	FARMERS POINT	1ST FLOOR,OPP:AMULYA MARKET,MA,AGARTALA,23,Tripura,799001	1ST FLOOR,OPP:AMULYA MARKET,MA, AGARTALA, Tripura, 799001	G100 	1	11000.000	Thaneshwar Kumar	Pankaj Kumar	JITENDRA SINGH	2026-09-22 09:37:42.650	2026-09-22 09:38:27.857	1	NSM
+SmtpDiagnosticLogId	CreateOrderNumber	SONumber	EventType	Stage	Status	SmtpHost	SmtpPort	FromEmail	ToEmails	CcEmails	Subject	SmtpResponse	SmtpStatusCode	SmtpErrorCode	RejectedMailbox	ExceptionType	ErrorMessage	InnerException	Source	Version	LoggedOn
+5	5218	0201981421	NSMApproval	CONNECT	CONNECTED	10.218.124.232	25	mpower@mahindra.com	besta.srinivas@mahindra.com,hongadu.sagar@mahindra.com,KUMAR.RAJNISH2@mahindra.com,PATIL.BALAPRASAD@mahindra.com	25019858@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	New Order Placed – SO No : 0201981421	NULL	NULL	NULL	NULL	NULL	NULL	NULL	WEB	NULL	2026-09-22 13:22:03.559
+6	5218	0201981421	NSMApproval	SEND	SMTP_ACCEPTED	10.218.124.232	25	mpower@mahindra.com	besta.srinivas@mahindra.com,hongadu.sagar@mahindra.com,KUMAR.RAJNISH2@mahindra.com,PATIL.BALAPRASAD@mahindra.com	25019858@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	New Order Placed – SO No : 0201981421	2.0.0 Ok: queued as 9A84514001F44	NULL	NULL	NULL	NULL	NULL	NULL	WEB	NULL	2026-09-22 13:22:03.740
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-SrNo	Material_Description	Quantity	Rate	Amount
-1	WATERMELON RAMAYA PACK SEED 50G	0.500	22000	11000.000
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-EmailID
-besta.srinivas@mahindra.com
-hongadu.sagar@mahindra.com
-KUMAR.RAJNISH2@mahindra.com
-PATIL.BALAPRASAD@mahindra.com
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Email
-25019858@mahindra.com
-23128452@mahindra.com
-25025357@mahindra.com
-S03609@mahindra.com
-bhavesh.bhavsar@sidhman.com
-25027959@mahindra.com
+MailLogId	CreateOrderNumber	SONumber	EventType	ToEmails	CcEmails	Subject	Status	ErrorMessage	SentOn	Source	Version
+1866	5218	0201981421	NSMApproval	besta.srinivas@mahindra.com,hongadu.sagar@mahindra.com,KUMAR.RAJNISH2@mahindra.com,PATIL.BALAPRASAD@mahindra.com	25019858@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	NULL	SUCCESS	NULL	2026-09-22 13:22:03.757	WEB	NULL
+
+
+_______________________________________________________________________________________________________________________________________________________________________________________________________________
+
+CreateOrderNumber	IndentNumber	DateOfPurchase	LineItemNumber	RepManCode	OrderQuantity	OrderQuantity_UOM	Sale_Price	Total_Price	ShippingAddress	BillingAddress	City	Dealer_State	ZipCode	ContactPersonName	ContactPersonNumber	CreatedAt	UpdatedAt	CreateOrderDate	CompanyCode	CartId	Email	UserId	OrderType	SalesOrganisation	DistChannel	Division	TMApproval	TMApproval_Date	RMApproval	RMApproval_Date	ShippedFromPlant	SONumber	SO_Date	CartItemId	CustomerCode	CustomerName	Total_Items	SrNo	Role_Details	IsActive_User	UserName	Available_Stock	TMName	RMName	UserCode	OrderRejectStatus	OrderRejectDate	OrderRejectName	OrderRejectRole	RMCode	ZSMCode	Plant	SecondApprovalUserCode	ResultMessage	SalesIndentStatus	Approve_From_Plant	Approve_From_C_AND_F	Approve_From_PlantUserCode	Approve_From_Plant_Request_Date	Approve_From_PlantUserRole	Rejectedreason	BHMName	BHM_Approval	BHM_Approval_Date	BHM_Reporting_Code	NSMCode	NSMName	NSM_Approval	NSM_Approval_Date
+5218	NULL	2026-09-22 12:45:19.147	NULL	25022706	NULL	NULL	NULL	11000.000	1ST FLOOR,OPP:AMULYA MARKET,MA, AGARTALA, Tripura, 799001	1ST FLOOR,OPP:AMULYA MARKET,MA,AGARTALA,23,Tripura,799001	AGARTALA	Tripura	799001	FARMERS POINT	7005080261	2026-09-22 12:45:19.147	2026-09-22 12:45:19.147	2026-09-22 12:45:19.147	1049	5732	AGFP2310	7	ZFCM	AG01	01	VG	1	2026-09-22 12:46:43.517	1	2026-09-22 12:47:30.873	AGFP2310	0201981421	2026-09-22 13:22:02.607	NULL	AGFP2310	FARMERS POINT	1	NULL	Customer	1	FARMERS POINT	NULL	Thaneshwar Kumar	Pankaj Kumar	AGFP2310	0	2026-09-22 12:45:19.147	NULL	NULL	25000329	25019858	G100 	25000329	NULL	APPROVED	1	0	25019858	2026-09-22 12:47:30.873	NULL	NULL	NULL	NULL	NULL	NULL	25019858	JITENDRA SINGH	1	2026-09-22 13:21:53.240
