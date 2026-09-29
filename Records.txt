@@ -1,16 +1,171 @@
-SmtpDiagnosticLogId	CreateOrderNumber	SONumber	EventType	Stage	Status	SmtpHost	SmtpPort	FromEmail	ToEmails	CcEmails	Subject	SmtpResponse	SmtpStatusCode	SmtpErrorCode	RejectedMailbox	ExceptionType	ErrorMessage	InnerException	Source	Version	LoggedOn
-5	5218	0201981421	NSMApproval	CONNECT	CONNECTED	10.218.124.232	25	mpower@mahindra.com	besta.srinivas@mahindra.com,hongadu.sagar@mahindra.com,KUMAR.RAJNISH2@mahindra.com,PATIL.BALAPRASAD@mahindra.com	25019858@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	New Order Placed – SO No : 0201981421	NULL	NULL	NULL	NULL	NULL	NULL	NULL	WEB	NULL	2026-09-22 13:22:03.559
-6	5218	0201981421	NSMApproval	SEND	SMTP_ACCEPTED	10.218.124.232	25	mpower@mahindra.com	besta.srinivas@mahindra.com,hongadu.sagar@mahindra.com,KUMAR.RAJNISH2@mahindra.com,PATIL.BALAPRASAD@mahindra.com	25019858@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	New Order Placed – SO No : 0201981421	2.0.0 Ok: queued as 9A84514001F44	NULL	NULL	NULL	NULL	NULL	NULL	WEB	NULL	2026-09-22 13:22:03.740
+/****** Object:  StoredProcedure [dbo].[GetProductOffering_MASL]    Script Date: 9/29/2026 4:58:12 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
+ALTER PROCEDURE [dbo].[GetProductOffering_MASL]
+    @CompanyCode   INT,
+    @CustomerCode  NVARCHAR(50)   -- NEW
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRY
+        DECLARE @CurrentDate DATE = CAST(GETDATE() AS DATE);
+        DECLARE @SalesOrg NVARCHAR(10) = N'AG01';
+        DECLARE @CustomerRegion NVARCHAR(50);
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        -- fetch region for incoming customer
+        SELECT TOP (1)
+               @CustomerRegion = LTRIM(RTRIM(Region))
+        FROM TB_CustomerMaster WITH (NOLOCK)
+        WHERE CompanyCode = @CompanyCode
+          AND CustomerCode = @CustomerCode
+         
 
+        -- keep full priority (A860,A935,A933,A862,A559)
+        DECLARE @ConditionTablePriority TABLE (PriorityOrder INT, ConditionTable NVARCHAR(5));
+        INSERT INTO @ConditionTablePriority (PriorityOrder, ConditionTable)
+        VALUES (1,'A860'),(2,'A935'),(3,'A933'),(4,'A862'),(5,'A559');
 
-MailLogId	CreateOrderNumber	SONumber	EventType	ToEmails	CcEmails	Subject	Status	ErrorMessage	SentOn	Source	Version
-1866	5218	0201981421	NSMApproval	besta.srinivas@mahindra.com,hongadu.sagar@mahindra.com,KUMAR.RAJNISH2@mahindra.com,PATIL.BALAPRASAD@mahindra.com	25019858@mahindra.com,23128452@mahindra.com,25025357@mahindra.com,S03609@mahindra.com,bhavesh.bhavsar@sidhman.com,25027959@mahindra.com	NULL	SUCCESS	NULL	2026-09-22 13:22:03.757	WEB	NULL
+        ;WITH ValidProducts AS (
+            SELECT 
+                PM.CompanyCode,
+                ISNULL(PM.ProductId, PI.ProductId) AS ProductId,
+                PM.Material_Number,
+                PM.Material_Description,
+                PM.Crop,
+                PM.Variety,
+                PM.Stage,
+                PM.Grade,
+                PM.Unit_Of_Measurement,
+                PI.APIURL AS ImagePath,
+                PM.Priority,
+                PM.PackSize,
+                PM.DIVISION
+            FROM TB_PriceMaster PM WITH (NOLOCK)
+            LEFT JOIN TB_ProductImages PI WITH (NOLOCK)
+              ON PM.CompanyCode = PI.CompanyCode
+             AND (PM.Material_Description LIKE PI.ProductName + '%'
+               OR  PM.Material_Description LIKE '%' + PI.ProductName + '%')
+            WHERE PM.CompanyCode = @CompanyCode
+              AND PM.Condition_Type = 'ZBAG'
+              AND (@CurrentDate >= PM.Valid_From OR PM.Valid_From IS NULL)
+              AND (@CurrentDate <= PM.Valid_To   OR PM.Valid_To   IS NULL)
+              AND (PM.Deletion_Indicator IS NULL OR PM.Deletion_Indicator NOT LIKE '%X%')
+              AND UPPER(LTRIM(RTRIM(PM.Crop))) <> 'UNKNOWN'
+              AND PI.APIURL IS NOT NULL
+        ),
+        ProductConditions AS (
+            SELECT
+                VP.Material_Number,
+                VP.Material_Description,
+                ctp.PriorityOrder,
+                ctp.ConditionTable,
+                bag.Condition_Amount AS BagAmount,
+                dis.Condition_Amount AS DisAmount,
+                dis.Condition_Unit   AS DisUnit,
+                CASE 
+                    WHEN dis.Condition_Amount IS NOT NULL AND (dis.Condition_Unit = '%' OR dis.Condition_Unit <> '%' OR dis.Condition_Unit IS NULL)
+                        THEN bag.Condition_Amount - (bag.Condition_Amount * (
+						   ABS(CAST(dis.Condition_Amount AS DECIMAL(18,2))) / 10.0) / 100.0)
+                    WHEN dis.Condition_Amount IS NOT NULL AND (dis.Condition_Unit <> '%' OR dis.Condition_Unit IS NULL)
+                        THEN bag.Condition_Amount - dis.Condition_Amount
+                    ELSE bag.Condition_Amount
+                END AS CalculatedPrice,
+                ROW_NUMBER() OVER (PARTITION BY VP.Material_Number ORDER BY ctp.PriorityOrder) AS ConditionPriorityRank
+            FROM ValidProducts VP
+            JOIN @ConditionTablePriority ctp ON 1=1
 
+            -- ZBAG (base)
+            LEFT JOIN TB_PriceMaster bag WITH (NOLOCK)
+              ON bag.CompanyCode       = @CompanyCode
+             AND bag.Material_Number   = VP.Material_Number
+             AND bag.Condition_Table   = ctp.ConditionTable
+             AND bag.Condition_Type    = 'ZBAG'
+             AND bag.SalesOrganisation = @SalesOrg
+             AND (
+                   -- NEW scoped filters
+                   (ctp.ConditionTable = 'A860' AND bag.Customer_Number = @CustomerCode)
+                OR (ctp.ConditionTable = 'A935' AND bag.Region = @CustomerRegion)
+                   -- KEEP earlier behavior for A933 & A862 (no extra constraint beyond SalesOrg/material/table/type)
+                OR (ctp.ConditionTable = 'A933')
+                OR (ctp.ConditionTable = 'A862')
+                   -- A559 is generic at SalesOrg/material level
+                OR (ctp.ConditionTable = 'A559')
+                 )
+             AND (@CurrentDate >= bag.Valid_From OR bag.Valid_From IS NULL)
+             AND (@CurrentDate <= bag.Valid_To   OR bag.Valid_To   IS NULL)
+             AND (bag.Deletion_Indicator IS NULL OR bag.Deletion_Indicator NOT LIKE '%X%')
 
-_______________________________________________________________________________________________________________________________________________________________________________________________________________
+            -- ZDIS (discount) matched to same scope
+            LEFT JOIN TB_PriceMaster dis WITH (NOLOCK)
+              ON dis.CompanyCode       = bag.CompanyCode
+             AND dis.Material_Number   = bag.Material_Number
+             AND dis.Condition_Table   = bag.Condition_Table
+             AND dis.Condition_Type    = 'ZDIS'
+             AND dis.SalesOrganisation = bag.SalesOrganisation
+             AND (
+                   (ctp.ConditionTable = 'A860' AND dis.Customer_Number = @CustomerCode)
+                OR (ctp.ConditionTable = 'A935' AND dis.Region = @CustomerRegion)
+                OR (ctp.ConditionTable IN ('A933','A862','A559'))  -- earlier behavior (no extra constraint)
+                 )
+             AND (@CurrentDate >= dis.Valid_From OR dis.Valid_From IS NULL)
+             AND (@CurrentDate <= dis.Valid_To   OR dis.Valid_To   IS NULL)
+             AND (dis.Deletion_Indicator IS NULL OR dis.Deletion_Indicator NOT LIKE '%X%')
 
-CreateOrderNumber	IndentNumber	DateOfPurchase	LineItemNumber	RepManCode	OrderQuantity	OrderQuantity_UOM	Sale_Price	Total_Price	ShippingAddress	BillingAddress	City	Dealer_State	ZipCode	ContactPersonName	ContactPersonNumber	CreatedAt	UpdatedAt	CreateOrderDate	CompanyCode	CartId	Email	UserId	OrderType	SalesOrganisation	DistChannel	Division	TMApproval	TMApproval_Date	RMApproval	RMApproval_Date	ShippedFromPlant	SONumber	SO_Date	CartItemId	CustomerCode	CustomerName	Total_Items	SrNo	Role_Details	IsActive_User	UserName	Available_Stock	TMName	RMName	UserCode	OrderRejectStatus	OrderRejectDate	OrderRejectName	OrderRejectRole	RMCode	ZSMCode	Plant	SecondApprovalUserCode	ResultMessage	SalesIndentStatus	Approve_From_Plant	Approve_From_C_AND_F	Approve_From_PlantUserCode	Approve_From_Plant_Request_Date	Approve_From_PlantUserRole	Rejectedreason	BHMName	BHM_Approval	BHM_Approval_Date	BHM_Reporting_Code	NSMCode	NSMName	NSM_Approval	NSM_Approval_Date
-5218	NULL	2026-09-22 12:45:19.147	NULL	25022706	NULL	NULL	NULL	11000.000	1ST FLOOR,OPP:AMULYA MARKET,MA, AGARTALA, Tripura, 799001	1ST FLOOR,OPP:AMULYA MARKET,MA,AGARTALA,23,Tripura,799001	AGARTALA	Tripura	799001	FARMERS POINT	7005080261	2026-09-22 12:45:19.147	2026-09-22 12:45:19.147	2026-09-22 12:45:19.147	1049	5732	AGFP2310	7	ZFCM	AG01	01	VG	1	2026-09-22 12:46:43.517	1	2026-09-22 12:47:30.873	AGFP2310	0201981421	2026-09-22 13:22:02.607	NULL	AGFP2310	FARMERS POINT	1	NULL	Customer	1	FARMERS POINT	NULL	Thaneshwar Kumar	Pankaj Kumar	AGFP2310	0	2026-09-22 12:45:19.147	NULL	NULL	25000329	25019858	G100 	25000329	NULL	APPROVED	1	0	25019858	2026-09-22 12:47:30.873	NULL	NULL	NULL	NULL	NULL	NULL	25019858	JITENDRA SINGH	1	2026-09-22 13:21:53.240
+            WHERE bag.Condition_Amount IS NOT NULL
+        ),
+        RankedProductWithPrice AS (
+            SELECT
+                VP.*,
+                PC.CalculatedPrice AS Condition_Amount,
+                ROW_NUMBER() OVER (
+                    PARTITION BY VP.Material_Number 
+                    ORDER BY PC.ConditionPriorityRank
+                ) AS PriceRank
+            FROM ValidProducts VP
+            JOIN ProductConditions PC
+              ON VP.Material_Number = PC.Material_Number
+             AND PC.ConditionPriorityRank = 1
+        )
+        SELECT 
+            CompanyCode,
+            Material_Number,
+            Material_Description,
+            Crop,
+            Variety,
+            Stage,
+            Grade,
+            Unit_Of_Measurement,
+            ImagePath,
+            Condition_Amount,
+            PackSize,
+            Division
+        FROM RankedProductWithPrice
+        WHERE PriceRank = 1
+        ORDER BY Priority ASC;
+    END TRY
+    BEGIN CATCH
+        INSERT INTO ErrorLog_GetProductOffering
+        (
+            ErrorMessage, ErrorSeverity, ErrorState, ProcedureName, ErrorLine, ErrorDate
+        )
+        VALUES (ERROR_MESSAGE(), ERROR_SEVERITY(), ERROR_STATE(), 'GetProductOffering_MASL', ERROR_LINE(), GETDATE());
+
+        SELECT 
+            NULL AS CompanyCode,
+            NULL AS Material_Number,
+            NULL AS Material_Description,
+            NULL AS Crop,
+            NULL AS Variety,
+            NULL AS Stage,
+            NULL AS Grade,
+            NULL AS Unit_Of_Measurement,
+            NULL AS ImagePath,
+            NULL AS Condition_Amount,
+            NULL AS PackSize,
+            NULL AS Division;
+    END CATCH;
+END
+
