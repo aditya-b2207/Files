@@ -1,439 +1,62 @@
-BEGIN TRY
-    BEGIN TRANSACTION;
-
-    ------------------------------------------------------------
-    -- 1. Dealer list taken directly from:
-    --    MHZPC Customer Mapping Master - MPower app.xlsx
-    --    Sheets: Old dealer + New dealer
-    ------------------------------------------------------------
-
-    DECLARE @DealerList TABLE
-    (
-        SoldToParty NVARCHAR(50) NOT NULL,
-        DealerType  NVARCHAR(20) NOT NULL
-    );
-
-    INSERT INTO @DealerList (SoldToParty, DealerType)
-    VALUES
-    ------------------------------------------------------------
-    -- OLD DEALERS - 196
-    ------------------------------------------------------------
-    (N'AGAAT0003', N'Old Dealer'),
-    (N'AGAVC5487', N'Old Dealer'),
-    (N'AGBCS0163', N'Old Dealer'),
-    (N'AGBRPI0012', N'Old Dealer'),
-    (N'AGBT0160', N'Old Dealer'),
-    (N'AGCSNR0019', N'Old Dealer'),
-    (N'AGKBS0182', N'Old Dealer'),
-    (N'AGRNB0082', N'Old Dealer'),
-    (N'AGSDC0025', N'Old Dealer'),
-    (N'AGSKCS0152', N'Old Dealer'),
-    (N'AGSPCP0097', N'Old Dealer'),
-    (N'AGSTI0106', N'Old Dealer'),
-    (N'AGTNE0120', N'Old Dealer'),
-    (N'AGWS0214', N'Old Dealer'),
-    (N'MPOT000006', N'Old Dealer'),
-    (N'MPOT000176', N'Old Dealer'),
-    (N'MPOT000180', N'Old Dealer'),
-    (N'MPOT000198', N'Old Dealer'),
-    (N'MPOT000199', N'Old Dealer'),
-    (N'MPOT000238', N'Old Dealer'),
-    (N'MPOT000452', N'Old Dealer'),
-    (N'MPOT000459', N'Old Dealer'),
-    (N'MPOT000460', N'Old Dealer'),
-    (N'MPOT000461', N'Old Dealer'),
-    (N'MPOT000462', N'Old Dealer'),
-    (N'MPOT000463', N'Old Dealer'),
-    (N'MPOT000465', N'Old Dealer'),
-    (N'MPOT000477', N'Old Dealer'),
-    (N'MPOT000546', N'Old Dealer'),
-    (N'MPOT000551', N'Old Dealer'),
-    (N'MPOT000554', N'Old Dealer'),
-    (N'MPOT000565', N'Old Dealer'),
-    (N'MPOT000569', N'Old Dealer'),
-    (N'MPOT000570', N'Old Dealer'),
-    (N'MPOT000681', N'Old Dealer'),
-    (N'MPOT000682', N'Old Dealer'),
-    (N'MPOT000701', N'Old Dealer'),
-    (N'MPOT000705', N'Old Dealer'),
-    (N'MPOT000714', N'Old Dealer'),
-    (N'MPOT000761', N'Old Dealer'),
-    (N'MPOT000764', N'Old Dealer'),
-    (N'MPOT000800', N'Old Dealer'),
-    (N'MPOT000819', N'Old Dealer'),
-    (N'MPOT000822', N'Old Dealer'),
-    (N'MPOT000823', N'Old Dealer'),
-    (N'MPOT000824', N'Old Dealer'),
-    (N'MPOT000957', N'Old Dealer'),
-    (N'MPOT001080', N'Old Dealer'),
-    (N'MPOT001171', N'Old Dealer'),
-    (N'MPOT001178', N'Old Dealer'),
-    (N'MPOT001180', N'Old Dealer'),
-    (N'MPOT001190', N'Old Dealer'),
-    (N'MPOT001196', N'Old Dealer'),
-    (N'MPOT001202', N'Old Dealer'),
-    (N'MPOT001216', N'Old Dealer'),
-    (N'MPOT001218', N'Old Dealer'),
-    (N'MPOT001289', N'Old Dealer'),
-    (N'MPOT001290', N'Old Dealer'),
-    (N'MPOT001292', N'Old Dealer'),
-    (N'MPOT001293', N'Old Dealer'),
-    (N'MPOT001375', N'Old Dealer'),
-    (N'MPOT001462', N'Old Dealer'),
-    (N'MPOT001467', N'Old Dealer'),
-    (N'MPOT001495', N'Old Dealer'),
-    (N'MPOT001555', N'Old Dealer'),
-    (N'MPOT001576', N'Old Dealer'),
-    (N'MPOT001577', N'Old Dealer'),
-    (N'MPOT001578', N'Old Dealer'),
-    (N'MPOT001579', N'Old Dealer'),
-    (N'MPOT001615', N'Old Dealer'),
-    (N'MPOT001620', N'Old Dealer'),
-    (N'MPOT001623', N'Old Dealer'),
-    (N'MPOT001625', N'Old Dealer'),
-    (N'MPOT001639', N'Old Dealer'),
-    (N'MPOT001652', N'Old Dealer'),
-    (N'MPOT001653', N'Old Dealer'),
-    (N'MPOT001655', N'Old Dealer'),
-    (N'MPOT001675', N'Old Dealer'),
-    (N'MPOT001713', N'Old Dealer'),
-    (N'MPOT001714', N'Old Dealer'),
-    (N'MPOT001719', N'Old Dealer'),
-    (N'MPOT001728', N'Old Dealer'),
-    (N'MPOT001729', N'Old Dealer'),
-    (N'MPOT001735', N'Old Dealer'),
-    (N'MPOT001743', N'Old Dealer'),
-    (N'MPOT001749', N'Old Dealer'),
-    (N'MPOT001751', N'Old Dealer'),
-    (N'MPOT001764', N'Old Dealer'),
-    (N'MPOT001771', N'Old Dealer'),
-    (N'MPOT001772', N'Old Dealer'),
-    (N'MPOT001781', N'Old Dealer'),
-    (N'MPOT001783', N'Old Dealer'),
-    (N'MPOT001784', N'Old Dealer'),
-    (N'MPOT001787', N'Old Dealer'),
-    (N'MPOT001810', N'Old Dealer'),
-    (N'MPOT001811', N'Old Dealer'),
-    (N'MPOT001813', N'Old Dealer'),
-    (N'MPOT001814', N'Old Dealer'),
-    (N'MPOT001816', N'Old Dealer'),
-    (N'MPOT001818', N'Old Dealer'),
-    (N'MPOT001827', N'Old Dealer'),
-    (N'MPOT001856', N'Old Dealer'),
-    (N'MPOT001940', N'Old Dealer'),
-    (N'MPOT001959', N'Old Dealer'),
-    (N'MPOT001960', N'Old Dealer'),
-    (N'MPOT001961', N'Old Dealer'),
-    (N'MPOT002127', N'Old Dealer'),
-    (N'MPOT002181', N'Old Dealer'),
-    (N'MPOT002234', N'Old Dealer'),
-    (N'MPOT002237', N'Old Dealer'),
-    (N'MPOT002261', N'Old Dealer'),
-    (N'MPOT002262', N'Old Dealer'),
-    (N'MPOT002312', N'Old Dealer'),
-    (N'MPOT002315', N'Old Dealer'),
-    (N'MPOT002316', N'Old Dealer'),
-    (N'MPOT002318', N'Old Dealer'),
-    (N'MPOT002319', N'Old Dealer'),
-    (N'MPOT002320', N'Old Dealer'),
-    (N'MPOT002321', N'Old Dealer'),
-    (N'MPOT002324', N'Old Dealer'),
-    (N'MPOT002330', N'Old Dealer'),
-    (N'MPOT002337', N'Old Dealer'),
-    (N'MPOT002338', N'Old Dealer'),
-    (N'MPOT002339', N'Old Dealer'),
-    (N'MPOT002341', N'Old Dealer'),
-    (N'MPOT002342', N'Old Dealer'),
-    (N'MPOT002344', N'Old Dealer'),
-    (N'MPOT002348', N'Old Dealer'),
-    (N'MPOT002349', N'Old Dealer'),
-    (N'MPOT002353', N'Old Dealer'),
-    (N'MPOT002359', N'Old Dealer'),
-    (N'MPOT002370', N'Old Dealer'),
-    (N'MPOT002397', N'Old Dealer'),
-    (N'MPOT002465', N'Old Dealer'),
-    (N'MPOT002467', N'Old Dealer'),
-    (N'MPOT002469', N'Old Dealer'),
-    (N'MPOT002471', N'Old Dealer'),
-    (N'MPOT002473', N'Old Dealer'),
-    (N'MPOT002476', N'Old Dealer'),
-    (N'MPOT002479', N'Old Dealer'),
-    (N'MPOT002480', N'Old Dealer'),
-    (N'MPOT002490', N'Old Dealer'),
-    (N'MPOT002492', N'Old Dealer'),
-    (N'MPOT002505', N'Old Dealer'),
-    (N'MPOT002517', N'Old Dealer'),
-    (N'MPOT002520', N'Old Dealer'),
-    (N'MPOT002527', N'Old Dealer'),
-    (N'MPOT002532', N'Old Dealer'),
-    (N'MPOT002553', N'Old Dealer'),
-    (N'MPOT002662', N'Old Dealer'),
-    (N'MPOT002736', N'Old Dealer'),
-    (N'MPOT002739', N'Old Dealer'),
-    (N'MPOT002758', N'Old Dealer'),
-    (N'MPOT002819', N'Old Dealer'),
-    (N'MPOT002852', N'Old Dealer'),
-    (N'MPOT002855', N'Old Dealer'),
-    (N'MPOT002872', N'Old Dealer'),
-    (N'MPOT002934', N'Old Dealer'),
-    (N'MPOT002940', N'Old Dealer'),
-    (N'MPOT002948', N'Old Dealer'),
-    (N'MPOT002949', N'Old Dealer'),
-    (N'MPOT002950', N'Old Dealer'),
-    (N'MPOT002951', N'Old Dealer'),
-    (N'MPOT002954', N'Old Dealer'),
-    (N'MPOT002959', N'Old Dealer'),
-    (N'MPOT002962', N'Old Dealer'),
-    (N'MPOT002963', N'Old Dealer'),
-    (N'MPOT002964', N'Old Dealer'),
-    (N'MPOT002966', N'Old Dealer'),
-    (N'MPOT002975', N'Old Dealer'),
-    (N'MPOT002977', N'Old Dealer'),
-    (N'MPOT003003', N'Old Dealer'),
-    (N'MPOT003010', N'Old Dealer'),
-    (N'MPOT003016', N'Old Dealer'),
-    (N'MPOT003017', N'Old Dealer'),
-    (N'MPOT003022', N'Old Dealer'),
-    (N'MPOT003030', N'Old Dealer'),
-    (N'MPOT003031', N'Old Dealer'),
-    (N'MPOT003032', N'Old Dealer'),
-    (N'MPOT003038', N'Old Dealer'),
-    (N'MPOT003040', N'Old Dealer'),
-    (N'MPOT003041', N'Old Dealer'),
-    (N'MPOT003042', N'Old Dealer'),
-    (N'MPOT003046', N'Old Dealer'),
-    (N'MPOT003252', N'Old Dealer'),
-    (N'MPOT003253', N'Old Dealer'),
-    (N'MPOT003295', N'Old Dealer'),
-    (N'MPOT003309', N'Old Dealer'),
-    (N'MPOT003332', N'Old Dealer'),
-    (N'MPOT003339', N'Old Dealer'),
-    (N'MPOT003340', N'Old Dealer'),
-    (N'MPOT003341', N'Old Dealer'),
-    (N'MPOT003342', N'Old Dealer'),
-    (N'MPOT003346', N'Old Dealer'),
-    (N'MPOT003352', N'Old Dealer'),
-    (N'MPOT003377', N'Old Dealer'),
-
-    ------------------------------------------------------------
-    -- NEW DEALERS - 54 UNIQUE
-    ------------------------------------------------------------
-    (N'AGMHZPC177', N'New Dealer'),
-    (N'MPOT003999', N'New Dealer'),
-    (N'MPOT002661', N'New Dealer'),
-    (N'MPOT003313', N'New Dealer'),
-    (N'MPOT003466', N'New Dealer'),
-    (N'MPOT002482', N'New Dealer'),
-    (N'MPOT003467', N'New Dealer'),
-    (N'MPOT003785', N'New Dealer'),
-    (N'MPOT002236', N'New Dealer'),
-    (N'MPOT003786', N'New Dealer'),
-    (N'MPOT003385', N'New Dealer'),
-    (N'MPOT002498', N'New Dealer'),
-    (N'MPOT002525', N'New Dealer'),
-    (N'MPOT001236', N'New Dealer'),
-    (N'MPOT002477', N'New Dealer'),
-    (N'MPOT002468', N'New Dealer'),
-    (N'MPOT002854', N'New Dealer'),
-    (N'MPOT002475', N'New Dealer'),
-    (N'AGRF0083', N'New Dealer'),
-    (N'MPOT001499', N'New Dealer'),
-    (N'MPOT002865', N'New Dealer'),
-    (N'MPOT001201', N'New Dealer'),
-    (N'MPOT001645', N'New Dealer'),
-    (N'MPOT002500', N'New Dealer'),
-    (N'MPOT002499', N'New Dealer'),
-    (N'MPOT002878', N'New Dealer'),
-    (N'MPOT001612', N'New Dealer'),
-    (N'MPOT002876', N'New Dealer'),
-    (N'AGDIF9720', N'New Dealer'),
-    (N'MPOT003485', N'New Dealer'),
-    (N'MPOT003494', N'New Dealer'),
-    (N'MPOT003522', N'New Dealer'),
-    (N'MPOT003523', N'New Dealer'),
-    (N'MPOT003524', N'New Dealer'),
-    (N'MPOT003577', N'New Dealer'),
-    (N'MPOT003578', N'New Dealer'),
-    (N'MPOT003579', N'New Dealer'),
-    (N'MPOT003936', N'New Dealer'),
-    (N'MPOT003937', N'New Dealer'),
-    (N'MPOT004005', N'New Dealer'),
-    (N'MPOT004006', N'New Dealer'),
-    (N'MPOT004007', N'New Dealer'),
-    (N'MPOT004008', N'New Dealer'),
-    (N'MPOT004009', N'New Dealer'),
-    (N'MPOT004030', N'New Dealer'),
-    (N'MPOT004031', N'New Dealer'),
-    (N'MPOT004038', N'New Dealer'),
-    (N'MPOT004041', N'New Dealer'),
-    (N'MPOT004043', N'New Dealer'),
-    (N'MPOT004065', N'New Dealer'),
-    (N'MPOT004099', N'New Dealer'),
-    (N'MPOT004106', N'New Dealer'),
-    (N'MPOT004107', N'New Dealer'),
-    (N'MPOT004108', N'New Dealer');
-
-
-    ------------------------------------------------------------
-    -- 2. CHECK COUNTS FROM EXCEL LIST
-    ------------------------------------------------------------
+ALTER PROCEDURE [dbo].[USP_ExportApproverHierarchyByCompany]
+(
+    @CompanyCode BIGINT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
 
     SELECT
-        DealerType,
-        COUNT(*) AS DealerCount
-    FROM @DealerList
-    GROUP BY DealerType;
+        C.CustomerCode,
+        C.CustomerName,
 
-    SELECT COUNT(*) AS TotalUniqueDealerCount
-    FROM @DealerList;
+        -- First Approver
+        ISNULL(C.TM, '') AS FirstApproverCode,
+        ISNULL(U1.Name, '') AS FirstApproverName,
 
+        -- Second Approver
+        ISNULL(U1.RepManCode, '') AS SecondApproverCode,
+        ISNULL(U2.Name, '') AS SecondApproverName,
 
-    ------------------------------------------------------------
-    -- 3. PREVIEW:
-    --    Records which WILL be activated
-    ------------------------------------------------------------
+        -- Third Approver
+        ISNULL(U2.RepManCode, '') AS ThirdApproverCode,
+        ISNULL(U3.Name, '') AS ThirdApproverName
 
-    SELECT
-        D.DealerType,
-        D.SoldToParty,
-        CM.CustomerCode,
-        CM.CustomerName,
-        U.UserId,
-        U.UserCode,
-        U.Name AS UserName,
-        U.RepManCode,
-        U.RoleId,
-        U.IsActive AS CurrentIsActive
-    FROM @DealerList D
+    FROM dbo.TB_CustomerMaster C
 
-    INNER JOIN dbo.CustomerMasterData CM
-        ON CM.CustomerCode = D.SoldToParty
-       AND CM.CompanyCode = 1054
+    LEFT JOIN dbo.Users U1
+        ON U1.CompanyCode = C.CompanyCode
+        AND U1.UserCode = C.TM
 
-    INNER JOIN dbo.Users U
-        ON U.UserCode = D.SoldToParty
-       AND U.CompanyCode = 1054
-       AND U.RoleId = 1
+    LEFT JOIN dbo.Users U2
+        ON U2.CompanyCode = U1.CompanyCode
+        AND U2.UserCode = U1.RepManCode
 
-    ORDER BY
-        D.DealerType,
-        D.SoldToParty;
+    LEFT JOIN dbo.Users U3
+        ON U3.CompanyCode = U2.CompanyCode
+        AND U3.UserCode = U2.RepManCode
 
+    WHERE C.CompanyCode = @CompanyCode
 
-    ------------------------------------------------------------
-    -- 4. CHECK EXCEL RECORDS PRESENT IN CUSTOMER MASTER
-    --    BUT NOT PRESENT IN USERS
-    ------------------------------------------------------------
+      ---------------------------------------------------------
+      -- For CompanyCode 1054:
+      -- Fetch only customers that are active in Users table
+      ---------------------------------------------------------
+      AND
+      (
+          @CompanyCode <> 1054
 
-    SELECT
-        D.DealerType,
-        D.SoldToParty,
-        CM.CustomerCode,
-        CM.CustomerName,
-        CM.TM
-    FROM @DealerList D
+          OR EXISTS
+          (
+              SELECT 1
+              FROM dbo.Users CU
+              WHERE CU.CompanyCode = C.CompanyCode
+                AND CU.UserCode = C.CustomerCode
+                AND CU.RoleId = 1
+                AND CU.IsActive = 1
+          )
+      )
 
-    INNER JOIN dbo.CustomerMasterData CM
-        ON CM.CustomerCode = D.SoldToParty
-       AND CM.CompanyCode = 1054
-
-    LEFT JOIN dbo.Users U
-        ON U.UserCode = D.SoldToParty
-       AND U.CompanyCode = 1054
-       AND U.RoleId = 1
-
-    WHERE U.UserId IS NULL
-
-    ORDER BY
-        D.DealerType,
-        D.SoldToParty;
-
-
-    ------------------------------------------------------------
-    -- 5. ACTIVATE USERS
-    --
-    -- Conditions:
-    -- Excel Sold-To-Party exists
-    -- Customer exists in CustomerMaster
-    -- User exists
-    -- CompanyCode = 1054
-    -- RoleId = 1 (Customer)
-    -- Currently inactive/null
-    ------------------------------------------------------------
-
-    UPDATE U
-    SET
-        U.IsActive = 1,
-        U.Updated_At = GETDATE()
-    FROM dbo.Users U
-
-    INNER JOIN @DealerList D
-        ON D.SoldToParty = U.UserCode
-
-    INNER JOIN dbo.CustomerMasterData CM
-        ON CM.CustomerCode = D.SoldToParty
-       AND CM.CompanyCode = 1054
-
-    WHERE U.CompanyCode = 1054
-      AND U.RoleId = 1
-      AND ISNULL(U.IsActive, 0) = 0;
-
-
-    ------------------------------------------------------------
-    -- 6. NUMBER OF USERS UPDATED
-    ------------------------------------------------------------
-
-    DECLARE @UpdatedRows INT = @@ROWCOUNT;
-
-    SELECT
-        @UpdatedRows AS TotalUsersActivated;
-
-
-    ------------------------------------------------------------
-    -- 7. FINAL VERIFICATION
-    ------------------------------------------------------------
-
-    SELECT
-        D.DealerType,
-        D.SoldToParty,
-        CM.CustomerName,
-        U.UserId,
-        U.UserCode,
-        U.RepManCode,
-        U.RoleId,
-        U.IsActive,
-        U.Updated_At
-    FROM @DealerList D
-
-    INNER JOIN dbo.CustomerMasterData CM
-        ON CM.CustomerCode = D.SoldToParty
-       AND CM.CompanyCode = 1054
-
-    LEFT JOIN dbo.Users U
-        ON U.UserCode = D.SoldToParty
-       AND U.CompanyCode = 1054
-       AND U.RoleId = 1
-
-    ORDER BY
-        D.DealerType,
-        D.SoldToParty;
-
-
-    ------------------------------------------------------------
-    -- COMMIT
-    ------------------------------------------------------------
-
-    COMMIT TRANSACTION;
-
-END TRY
-BEGIN CATCH
-
-    IF @@TRANCOUNT > 0
-        ROLLBACK TRANSACTION;
-
-    SELECT
-        ERROR_NUMBER() AS ErrorNumber,
-        ERROR_MESSAGE() AS ErrorMessage,
-        ERROR_LINE() AS ErrorLine;
-
-END CATCH;
+    ORDER BY C.CustomerCode;
+END;
+GO
