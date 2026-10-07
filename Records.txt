@@ -1,102 +1,16 @@
-ALTER PROCEDURE [dbo].[USP_GetAllApproverHierarchyByCompany]
-(
-    @CompanyCode BIGINT,
-    @PageNumber INT,
-    @PageSize INT
-)
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @Offset INT = (@PageNumber - 1) * @PageSize;
-
-    ;WITH HierarchyData AS
-    (
-        SELECT 
-            C.CompanyCode,
-            C.CustomerCode,
-            C.CustomerName,
-
-            -- First Approver (TM)
-            C.TM AS FirstApproverCode,
-            U1.Name AS FirstApproverName,
-
-            -- Second Approver
-            U1.RepManCode AS SecondApproverCode,
-            U2.Name AS SecondApproverName,
-
-            -- Third Approver
-            U2.RepManCode AS ThirdApproverCode,
-            U3.Name AS ThirdApproverName
-
-        FROM dbo.TB_CustomerMaster C
-
-        LEFT JOIN dbo.Users U1 
-            ON U1.CompanyCode = C.CompanyCode
-            AND U1.UserCode = C.TM
-
-        LEFT JOIN dbo.Users U2
-            ON U2.CompanyCode = U1.CompanyCode
-            AND U2.UserCode = U1.RepManCode
-
-        LEFT JOIN dbo.Users U3
-            ON U3.CompanyCode = U2.CompanyCode
-            AND U3.UserCode = U2.RepManCode
-
-        WHERE C.CompanyCode = @CompanyCode
-
-          ---------------------------------------------------------
-          -- For CompanyCode 1054:
-          -- Show only active customer records from Users
-          ---------------------------------------------------------
-          AND
-          (
-              @CompanyCode <> 1054
-
-              OR EXISTS
-              (
-                  SELECT 1
-                  FROM dbo.Users CU
-                  WHERE CU.CompanyCode = C.CompanyCode
-                    AND CU.UserCode = C.CustomerCode
-                    AND CU.RoleId = 1
-                    AND CU.IsActive = 1
-              )
-          )
-    )
-
-    ---------------------------------------------------------
-    -- Paginated result
-    ---------------------------------------------------------
-    SELECT *
-    FROM HierarchyData
-    ORDER BY CustomerCode
-    OFFSET @Offset ROWS
-    FETCH NEXT @PageSize ROWS ONLY;
-
-
-    ---------------------------------------------------------
-    -- Total Count
-    -- Same active-customer condition must be applied here
-    ---------------------------------------------------------
-    SELECT COUNT(*) AS TotalRecords
-    FROM dbo.TB_CustomerMaster C
-    WHERE C.CompanyCode = @CompanyCode
-
-      AND
-      (
-          @CompanyCode <> 1054
-
-          OR EXISTS
-          (
-              SELECT 1
-              FROM dbo.Users CU
-              WHERE CU.CompanyCode = C.CompanyCode
-                AND CU.UserCode = C.CustomerCode
-                AND CU.RoleId = 1
-                AND CU.IsActive = 1
-          )
-      );
-
-END
-GO
+SELECT
+    C.CustomerCode,
+    C.CustomerName,
+    C.Telephone,
+    C.TM,
+    C.CompanyCode
+FROM dbo.TB_CustomerMaster C
+WHERE C.CompanyCode = 1054
+  AND C.CustomerCode IN
+  (
+      'AGMHZPC177',
+      'MPOT001201',
+      'MPOT002468',
+      'MPOT002525',
+      'MPOT003999'
+  );
