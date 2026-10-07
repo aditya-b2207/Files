@@ -1,16 +1,6 @@
-SELECT
-    C.CustomerCode,
-    C.CustomerName,
-    C.Telephone,
-    C.TM,
-    C.CompanyCode
-FROM dbo.TB_CustomerMaster C
-WHERE C.CompanyCode = 1054
-  AND C.CustomerCode IN
-  (
-      'AGMHZPC177',
-      'MPOT001201',
-      'MPOT002468',
-      'MPOT002525',
-      'MPOT003999'
-  );
+CustomerCode	CustomerName	Telephone	TM	CompanyCode
+MPOT001201	MAHARAJA SHEETGRAH PRIVATE LIMITED	9460292686	25010844	1054
+MPOT002525	Golden Agriculture Farm	9891145518	25010844	1054
+MPOT002468	SHANVI TRADERS	9457252921	25010844	1054
+AGMHZPC177	Mahashakti Cold	9810010537	25010844	1054
+MPOT003999	Rahul Kumar S/O Ramesh Chandra Shar	9720191068	25010844	1054
