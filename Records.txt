@@ -1,6 +1,147 @@
-CustomerCode	CustomerName	Telephone	TM	CompanyCode
-MPOT001201	MAHARAJA SHEETGRAH PRIVATE LIMITED	9460292686	25010844	1054
-MPOT002525	Golden Agriculture Farm	9891145518	25010844	1054
-MPOT002468	SHANVI TRADERS	9457252921	25010844	1054
-AGMHZPC177	Mahashakti Cold	9810010537	25010844	1054
-MPOT003999	Rahul Kumar S/O Ramesh Chandra Shar	9720191068	25010844	1054
+INSERT INTO dbo.Users
+(
+    UserCode,
+    CompanyCode,
+    UserType,
+    Name,
+    ContactNumber,
+    Email,
+    Password,
+    RepManCode,
+    IsActive,
+    RoleId,
+    FirstName,
+    LastName,
+    Role_Details,
+    JobTitle,
+    Location,
+    MPIN,
+    Updated_At
+)
+SELECT *
+FROM
+(
+    VALUES
+    (
+        N'MPOT001201',
+        CAST(1054 AS BIGINT),
+        N'Customer',
+        N'MAHARAJA SHEETGRAH PRIVATE LIMITED',
+        N'9460292686',
+        NULL,
+        NULL,
+        N'25010844',
+        CAST(1 AS BIT),
+        1,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        GETDATE()
+    ),
+    (
+        N'MPOT002525',
+        CAST(1054 AS BIGINT),
+        N'Customer',
+        N'Golden Agriculture Farm',
+        N'9891145518',
+        NULL,
+        NULL,
+        N'25010844',
+        CAST(1 AS BIT),
+        1,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        GETDATE()
+    ),
+    (
+        N'MPOT002468',
+        CAST(1054 AS BIGINT),
+        N'Customer',
+        N'SHANVI TRADERS',
+        N'9457252921',
+        NULL,
+        NULL,
+        N'25010844',
+        CAST(1 AS BIT),
+        1,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        GETDATE()
+    ),
+    (
+        N'AGMHZPC177',
+        CAST(1054 AS BIGINT),
+        N'Customer',
+        N'Mahashakti Cold',
+        N'9810010537',
+        NULL,
+        NULL,
+        N'25010844',
+        CAST(1 AS BIT),
+        1,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        GETDATE()
+    ),
+    (
+        N'MPOT003999',
+        CAST(1054 AS BIGINT),
+        N'Customer',
+        N'Rahul Kumar S/O Ramesh Chandra Shar',
+        N'9720191068',
+        NULL,
+        NULL,
+        N'25010844',
+        CAST(1 AS BIT),
+        1,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        GETDATE()
+    )
+) AS X
+(
+    UserCode,
+    CompanyCode,
+    UserType,
+    Name,
+    ContactNumber,
+    Email,
+    Password,
+    RepManCode,
+    IsActive,
+    RoleId,
+    FirstName,
+    LastName,
+    Role_Details,
+    JobTitle,
+    Location,
+    MPIN,
+    Updated_At
+)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM dbo.Users U
+    WHERE U.UserCode = X.UserCode
+      AND U.CompanyCode = X.CompanyCode
+      AND U.RoleId = 1
+);
