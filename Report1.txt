@@ -1,17 +1,15 @@
 USE SalesOrderUAT;
 GO
 
-SELECT DISTINCT
-    pm.Plant AS SourcePlant,
-    'Punjab' AS SourceState,
-
-    pm.Region AS DestinationRegionCode,
-    srm.StateName AS DestinationState,
-
+SELECT
+    pm.Customer_Number AS CustomerCode,
     pm.Material_Number AS MaterialCode,
     pm.Material_Description AS ProductName,
 
     pm.Condition_Amount AS Price,
+
+    pm.Plant AS SourcePlant,
+    pm.Region AS RegionCode,
 
     pm.Condition_Table,
     pm.Condition_Type,
@@ -21,34 +19,17 @@ SELECT DISTINCT
 
 FROM dbo.TB_PriceMaster pm
 
-LEFT JOIN dbo.TB_StateRegionMap srm
-    ON LTRIM(RTRIM(pm.Region))
-       = LTRIM(RTRIM(srm.RegionCode))
-
 WHERE pm.CompanyCode = '1054'
+  AND pm.Condition_Table = 'A860'
+  AND pm.Condition_Type = 'ZB01'
 
-    AND pm.Condition_Table = 'A706'
+  AND (pm.Valid_From IS NULL
+       OR pm.Valid_From <= CAST(GETDATE() AS DATE))
 
-    AND pm.Condition_Type = 'ZB01'
-
-    -- Punjab Source Plants
-    AND pm.Plant IN ('MZ01', 'MZ02', 'MZ04')
-
-    -- All Destination Regions Except Punjab
-    AND LTRIM(RTRIM(pm.Region)) <> '19'
-
-    -- Only Currently Valid Prices
-    AND (
-        pm.Valid_From IS NULL
-        OR pm.Valid_From <= CAST(GETDATE() AS DATE)
-    )
-
-    AND (
-        pm.Valid_To IS NULL
-        OR pm.Valid_To >= CAST(GETDATE() AS DATE)
-    )
+  AND (pm.Valid_To IS NULL
+       OR pm.Valid_To >= CAST(GETDATE() AS DATE))
 
 ORDER BY
-    DestinationRegionCode,
-    SourcePlant,
-    ProductName;
+    pm.Customer_Number,
+    pm.Material_Description,
+    pm.Id DESC;
