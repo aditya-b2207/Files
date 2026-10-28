@@ -1,31 +1,81 @@
-USE SalesOrderUAT;
+/****** Object:  StoredProcedure [dbo].[GetCustomerCodesByMaterial_A860]    Script Date: 10/28/2026 11:27:29 AM ******/
+SET ANSI_NULLS ON
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetCustomerCodesByMaterial_A860]
+    @CompanyCode BIGINT,
+    @MaterialDescription NVARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-SELECT
-    pm.Customer_Number AS CustomerCode,
-    pm.SalesOrganisation,
-    pm.Material_Number,
-    pm.Material_Description,
-    pm.Condition_Amount,
-    pm.Condition_Unit,
-    pm.Unit_Of_Measurement,
-    pm.Plant,
-    pm.Region,
-    pm.Valid_From,
-    pm.Valid_To,
-    pm.Condition_Table,
-    pm.Condition_Type
-FROM dbo.TB_PriceMaster pm
-WHERE pm.CompanyCode = '1054'
-  AND pm.Condition_Table = 'A860'
-  AND pm.Condition_Type = 'ZB01'
-  AND LTRIM(RTRIM(pm.Customer_Number)) = 'MPOT004009'
-  AND (
-      pm.Valid_From IS NULL
-      OR pm.Valid_From <= CAST(GETDATE() AS DATE)
-  )
-  AND (
-      pm.Valid_To IS NULL
-      OR pm.Valid_To >= CAST(GETDATE() AS DATE)
-  )
-ORDER BY pm.Id DESC;
+    DECLARE @md_lower NVARCHAR(200);
+
+    -- Normalize the material received from the API
+    SET @md_lower = LOWER(LTRIM(RTRIM(@MaterialDescription)));
+
+    /*
+        Special material-description exception:
+
+        Received:
+        POTATO JYOTI G G4 GRADE M11
+
+        Consider as:
+        POTATO JYOTI G GRADE M11
+    */
+
+	 IF @CompanyCode = 1054
+       AND @md_lower = N'jyoti g g4 grade m11'
+    BEGIN
+        SET @md_lower = N'potato jyoti g grade m11';
+    END;
+
+    IF @CompanyCode = 1054
+       AND @md_lower = N'potato jyoti g g4 grade m11'
+    BEGIN
+        SET @md_lower = N'potato jyoti g grade m11';
+    END;
+
+    ;WITH d AS
+    (
+        SELECT DISTINCT
+            LTRIM(RTRIM(pm.Customer_Number)) AS CustomerCode,
+            COALESCE(
+                LTRIM(RTRIM(cm.CustomerName)),
+                ''
+            ) AS CustomerName
+        FROM dbo.TB_PriceMaster pm
+        LEFT JOIN dbo.TB_CustomerMaster cm
+            ON cm.CompanyCode = pm.CompanyCode
+           AND LTRIM(RTRIM(cm.CustomerCode))
+               = LTRIM(RTRIM(pm.Customer_Number))
+        WHERE pm.CompanyCode = @CompanyCode
+          AND pm.Condition_Table = 'A860'
+          AND
+          (
+              pm.Material_Description_Lower = @md_lower
+              OR LOWER(LTRIM(RTRIM(pm.Material_Description))) = @md_lower
+          )
+          AND
+          (
+              pm.Valid_From IS NULL
+              OR pm.Valid_From <= CAST(GETDATE() AS DATE)
+          )
+          AND
+          (
+              pm.Valid_To IS NULL
+              OR pm.Valid_To >= CAST(GETDATE() AS DATE)
+          )
+          AND pm.Customer_Number IS NOT NULL
+          AND LTRIM(RTRIM(pm.Customer_Number)) <> ''
+    )
+    SELECT
+        CustomerCode,
+        CustomerName
+    FROM d
+    ORDER BY
+        CASE WHEN CustomerName = '' THEN 1 ELSE 0 END,
+        CustomerName,
+        CustomerCode;
+END;
