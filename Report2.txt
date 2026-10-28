@@ -1,17 +1,7 @@
-- Copying to [dbo].[TB_CustomerLedger] (Error)
-	Messages
-	* Error 0xc0202009: Data Flow Task 1: SSIS Error Code DTS_E_OLEDBERROR.  An OLE DB error has occurred. Error code: 0x80004005.
-	An OLE DB record is available.  Source: "Microsoft OLE DB Driver for SQL Server"  Hresult: 0x80004005  Description: "Invalid date format".
-	 (SQL Server Import and Export Wizard)
-	
-	* Error 0xc020901c: Data Flow Task 1: There was an error with Destination - TB_CustomerLedger.Inputs[Destination Input].Columns[Clearing_Date] on Destination - TB_CustomerLedger.Inputs[Destination Input]. The column status returned was: "Conversion failed because the data value overflowed the specified type.".
-	 (SQL Server Import and Export Wizard)
-	
-	* Error 0xc0209029: Data Flow Task 1: SSIS Error Code DTS_E_INDUCEDTRANSFORMFAILUREONERROR.  The "Destination - TB_CustomerLedger.Inputs[Destination Input]" failed because error code 0xC020907A occurred, and the error row disposition on "Destination - TB_CustomerLedger.Inputs[Destination Input]" specifies failure on error. An error occurred on the specified object of the specified component.  There may be error messages posted before this with more information about the failure.
-	 (SQL Server Import and Export Wizard)
-	
-	* Error 0xc0047022: Data Flow Task 1: SSIS Error Code DTS_E_PROCESSINPUTFAILED.  The ProcessInput method on component "Destination - TB_CustomerLedger" (102) failed with error code 0xC0209029 while processing input "Destination Input" (115). The identified component returned an error from the ProcessInput method. The error is specific to the component, but the error is fatal and will cause the Data Flow task to stop running.  There may be error messages posted before this with more information about the failure.
-	 (SQL Server Import and Export Wizard)
-	
+CompanyCode	SalesOrganisation	Dist_Channel	Division	Material_Number	Material_Description	Material_Type	Condition_Type	Number_of_the_Condition_Record	Condition_Amount	Condition_Unit	Unit_Of_Measurement	Customer_Number	Plant	Region	Deletion_Indicator	Valid_From	Valid_To	Pricing_Unit	Booking_Amount	Variety	Crop	Grade	ImagePath	Stage	Condition_Table	Material_Description_Lower	PackSize	Priority	ProductId	Id
+1054	MZ01		29	ASPTAUG3M2H05	POTATO TAURUS MH05 G3 GRADE M2	HALB	ZB01	0213949884	29.00	INR	KG	MPOT004009				2026-07-04	2026-11-14	1	NULL		UNKNOWN	NULL	NULL	NULL	A860	potato taurus mh05 g3 grade m2		NULL	NULL	72725
 
 
+
+CustomerId	CompanyCode	CustomerCode	CustomerName	City	PostalCode	Street	Telephone	GSTNo	SalesOrganisation	Dist_Channel	Division	SalesOffice	SalesGroup	Region	RegionDescription	LicenseNumber	ValidityOfLicense	Ship_To_Party	TM	Emp_Name	Plant	Updated_at
+20006	1054	MPOT004009	JYOTI EXPORTS	Sabarkantha	383305	0,110, VILL. GHAMBHIRPURA, NEA	9638750899	24AAIFJ6459L1ZV	MZ01	CS	29			06	Gujarat		NULL	MPOT004009	23147299	NULL		2026-09-11 09:51:46.750
