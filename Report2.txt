@@ -1,7 +1,31 @@
-CompanyCode	SalesOrganisation	Dist_Channel	Division	Material_Number	Material_Description	Material_Type	Condition_Type	Number_of_the_Condition_Record	Condition_Amount	Condition_Unit	Unit_Of_Measurement	Customer_Number	Plant	Region	Deletion_Indicator	Valid_From	Valid_To	Pricing_Unit	Booking_Amount	Variety	Crop	Grade	ImagePath	Stage	Condition_Table	Material_Description_Lower	PackSize	Priority	ProductId	Id
-1054	MZ01		29	ASPTAUG3M2H05	POTATO TAURUS MH05 G3 GRADE M2	HALB	ZB01	0213949884	29.00	INR	KG	MPOT004009				2026-07-04	2026-11-14	1	NULL		UNKNOWN	NULL	NULL	NULL	A860	potato taurus mh05 g3 grade m2		NULL	NULL	72725
+USE SalesOrderUAT;
+GO
 
-
-
-CustomerId	CompanyCode	CustomerCode	CustomerName	City	PostalCode	Street	Telephone	GSTNo	SalesOrganisation	Dist_Channel	Division	SalesOffice	SalesGroup	Region	RegionDescription	LicenseNumber	ValidityOfLicense	Ship_To_Party	TM	Emp_Name	Plant	Updated_at
-20006	1054	MPOT004009	JYOTI EXPORTS	Sabarkantha	383305	0,110, VILL. GHAMBHIRPURA, NEA	9638750899	24AAIFJ6459L1ZV	MZ01	CS	29			06	Gujarat		NULL	MPOT004009	23147299	NULL		2026-09-11 09:51:46.750
+SELECT
+    pm.Customer_Number AS CustomerCode,
+    pm.SalesOrganisation,
+    pm.Material_Number,
+    pm.Material_Description,
+    pm.Condition_Amount,
+    pm.Condition_Unit,
+    pm.Unit_Of_Measurement,
+    pm.Plant,
+    pm.Region,
+    pm.Valid_From,
+    pm.Valid_To,
+    pm.Condition_Table,
+    pm.Condition_Type
+FROM dbo.TB_PriceMaster pm
+WHERE pm.CompanyCode = '1054'
+  AND pm.Condition_Table = 'A860'
+  AND pm.Condition_Type = 'ZB01'
+  AND LTRIM(RTRIM(pm.Customer_Number)) = 'MPOT004009'
+  AND (
+      pm.Valid_From IS NULL
+      OR pm.Valid_From <= CAST(GETDATE() AS DATE)
+  )
+  AND (
+      pm.Valid_To IS NULL
+      OR pm.Valid_To >= CAST(GETDATE() AS DATE)
+  )
+ORDER BY pm.Id DESC;
