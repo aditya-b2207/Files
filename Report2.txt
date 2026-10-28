@@ -1,81 +1,58 @@
-/****** Object:  StoredProcedure [dbo].[GetCustomerCodesByMaterial_A860]    Script Date: 10/28/2026 11:27:29 AM ******/
-SET ANSI_NULLS ON
+USE SalesOrderUAT;
 GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[GetCustomerCodesByMaterial_A860]
-    @CompanyCode BIGINT,
-    @MaterialDescription NVARCHAR(200)
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    DECLARE @md_lower NVARCHAR(200);
+SELECT DISTINCT
+    pm.CompanyCode,
+    ps.State AS SourceState,
+    pm.Plant AS SourcePlant,
 
-    -- Normalize the material received from the API
-    SET @md_lower = LOWER(LTRIM(RTRIM(@MaterialDescription)));
+    srm.StateName AS DestinationState,
+    pm.Region AS DestinationRegionCode,
 
-    /*
-        Special material-description exception:
+    pm.Material_Number AS MaterialCode,
+    pm.Material_Description AS ProductName,
 
-        Received:
-        POTATO JYOTI G G4 GRADE M11
+    pm.Condition_Table,
+    pm.Condition_Type,
+    pm.Condition_Amount,
 
-        Consider as:
-        POTATO JYOTI G GRADE M11
-    */
+    pm.Valid_From,
+    pm.Valid_To
 
-	 IF @CompanyCode = 1054
-       AND @md_lower = N'jyoti g g4 grade m11'
-    BEGIN
-        SET @md_lower = N'potato jyoti g grade m11';
-    END;
+FROM dbo.TB_PriceMaster pm
 
-    IF @CompanyCode = 1054
-       AND @md_lower = N'potato jyoti g g4 grade m11'
-    BEGIN
-        SET @md_lower = N'potato jyoti g grade m11';
-    END;
+INNER JOIN dbo.TB_Plant_State ps
+    ON LTRIM(RTRIM(pm.Plant))
+       = LTRIM(RTRIM(ps.Plant))
 
-    ;WITH d AS
-    (
-        SELECT DISTINCT
-            LTRIM(RTRIM(pm.Customer_Number)) AS CustomerCode,
-            COALESCE(
-                LTRIM(RTRIM(cm.CustomerName)),
-                ''
-            ) AS CustomerName
-        FROM dbo.TB_PriceMaster pm
-        LEFT JOIN dbo.TB_CustomerMaster cm
-            ON cm.CompanyCode = pm.CompanyCode
-           AND LTRIM(RTRIM(cm.CustomerCode))
-               = LTRIM(RTRIM(pm.Customer_Number))
-        WHERE pm.CompanyCode = @CompanyCode
-          AND pm.Condition_Table = 'A860'
-          AND
-          (
-              pm.Material_Description_Lower = @md_lower
-              OR LOWER(LTRIM(RTRIM(pm.Material_Description))) = @md_lower
-          )
-          AND
-          (
-              pm.Valid_From IS NULL
-              OR pm.Valid_From <= CAST(GETDATE() AS DATE)
-          )
-          AND
-          (
-              pm.Valid_To IS NULL
-              OR pm.Valid_To >= CAST(GETDATE() AS DATE)
-          )
-          AND pm.Customer_Number IS NOT NULL
-          AND LTRIM(RTRIM(pm.Customer_Number)) <> ''
+INNER JOIN dbo.TB_StateRegionMap srm
+    ON LTRIM(RTRIM(pm.Region))
+       = LTRIM(RTRIM(srm.RegionCode))
+
+WHERE pm.CompanyCode = '1054'
+
+    AND pm.Condition_Table = 'A706'
+
+    AND pm.Condition_Type = 'ZB01'
+
+    -- Source Location Punjab
+    AND UPPER(LTRIM(RTRIM(ps.State))) = 'PUNJAB'
+
+    -- Exclude Punjab as Destination
+    AND UPPER(LTRIM(RTRIM(srm.StateName))) <> 'PUNJAB'
+
+    -- Currently Valid Prices
+    AND (
+        pm.Valid_From IS NULL
+        OR pm.Valid_From <= CAST(GETDATE() AS DATE)
     )
-    SELECT
-        CustomerCode,
-        CustomerName
-    FROM d
-    ORDER BY
-        CASE WHEN CustomerName = '' THEN 1 ELSE 0 END,
-        CustomerName,
-        CustomerCode;
-END;
+
+    AND (
+        pm.Valid_To IS NULL
+        OR pm.Valid_To >= CAST(GETDATE() AS DATE)
+    )
+
+ORDER BY
+    DestinationRegionCode,
+    DestinationState,
+    ProductName;
