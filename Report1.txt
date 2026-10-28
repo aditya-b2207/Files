@@ -1,15 +1,54 @@
--- CFA Mail (TO)
+USE SalesOrderUAT;
+GO
+
 SELECT DISTINCT
-    TRIM(C.EmailID) AS EmailID
-FROM TB_CFA_List C
-WHERE TRIM(C.PlantCode) = (
-    SELECT TOP 1 TRIM(O.Plant)
-    FROM TB_Create_Dealer_Order O
-    WHERE O.CreateOrderNumber = @CreateOrderNumber
-)
-AND C.EmailID IS NOT NULL
-AND TRIM(C.EmailID) <> '';
+    pm.Plant AS SourcePlant,
+    'Punjab' AS SourceState,
 
+    pm.Region AS DestinationRegionCode,
+    srm.StateName AS DestinationState,
 
---------------------------------------------------------------------
+    pm.Material_Number AS MaterialCode,
+    pm.Material_Description AS ProductName,
 
+    pm.Condition_Amount AS Price,
+
+    pm.Condition_Table,
+    pm.Condition_Type,
+
+    pm.Valid_From,
+    pm.Valid_To
+
+FROM dbo.TB_PriceMaster pm
+
+LEFT JOIN dbo.TB_StateRegionMap srm
+    ON LTRIM(RTRIM(pm.Region))
+       = LTRIM(RTRIM(srm.RegionCode))
+
+WHERE pm.CompanyCode = '1054'
+
+    AND pm.Condition_Table = 'A706'
+
+    AND pm.Condition_Type = 'ZB01'
+
+    -- Punjab Source Plants
+    AND pm.Plant IN ('MZ01', 'MZ02', 'MZ04')
+
+    -- All Destination Regions Except Punjab
+    AND LTRIM(RTRIM(pm.Region)) <> '19'
+
+    -- Only Currently Valid Prices
+    AND (
+        pm.Valid_From IS NULL
+        OR pm.Valid_From <= CAST(GETDATE() AS DATE)
+    )
+
+    AND (
+        pm.Valid_To IS NULL
+        OR pm.Valid_To >= CAST(GETDATE() AS DATE)
+    )
+
+ORDER BY
+    DestinationRegionCode,
+    SourcePlant,
+    ProductName;
